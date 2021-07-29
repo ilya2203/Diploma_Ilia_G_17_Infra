@@ -6,6 +6,7 @@ steps:
   inputs:
     SourceFolder: Terraform
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+  timeoutInMinutes: 2
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: tf'
