@@ -4,8 +4,10 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
   inputs:
-    SourceFolder: Terraform
+    SourceFolder: 'Terraform'
+    Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+    CleanTargetFolder: true
   timeoutInMinutes: 2
 
 - task: PublishBuildArtifacts@1
