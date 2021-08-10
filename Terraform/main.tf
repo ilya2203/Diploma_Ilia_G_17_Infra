@@ -9,13 +9,22 @@ terraform {
   }
 }
 
-# Configure the Microsoft Azure Provider
-provider "azurerm" {
-  features {}
+backend "azurerm" {
+  storage_account_name = "__azureStorageAccount__"
+    cointainer_name    = "terraform"
+    key                = "terraform.state"
+  access_key = "__storagekey__"
+  features{}
 }
 
-# Create a resource group
-resource "azurerm_resource_group" "test" {
-  name     = "test"
-  location = "West Europe"
+resource "azurerm_storage_account" "example" {
+  name                     = "gozhin02"
+  resource_group_name      = "epm-rdsp"
+  location                 = "West Europe"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
+    owner = "ilia_gozhin@epam.com"
+  }
 }
