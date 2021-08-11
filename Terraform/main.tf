@@ -4,17 +4,16 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.46.0"
+      version = ">=2.56"
     }
   }
-}
-
-backend "azurerm" {
-  storage_account_name = "__azureStorageAccount__"
-    cointainer_name    = "terraform"
-    key                = "terraform.state"
-  access_key = "__storagekey__"
-  features{}
+  backend "azurerm" {
+    storage_account_name = "__azureStorageAccount__"
+      cointainer_name    = "terraform"
+      key                = "terraform.state"
+    access_key = "__storagekey__"
+    features{}
+  }
 }
 
 resource "azurerm_storage_account" "example" {
