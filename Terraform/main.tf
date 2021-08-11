@@ -8,15 +8,16 @@ terraform {
     }
   }
   backend "azurerm" {
+    resource_group_name  = "epm-rdsp"
     storage_account_name = "__azureStorageAccount__"
       cointainer_name    = "terraform"
-      key                = "terraform.state"
+      key                = "terraform.tfstate"
     access_key = "__storagekey__"
     features{}
   }
 }
 
-resource "azurerm_storage_account" "example" {
+resource "azurerm_storage_account" "gozhin" {
   name                     = "gozhin02"
   resource_group_name      = "epm-rdsp"
   location                 = "West Europe"
