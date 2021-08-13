@@ -1,0 +1,45 @@
+
+trigger:
+- main
+
+pool:
+  name: Azure Pipelines
+  vmImage: vs2017-win2016
+
+steps:
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
+  inputs:
+    SourceFolder: 'Terraform'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+    CleanTargetFolder: true
+  timeoutInMinutes: 2
+
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '1.0.4'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(build.artifactstagingdirectory)/Terraform'
+    backendServiceArm: 'EPM-RDSP'
+    backendAzureRmResourceGroupName: 'epm-rdsp'
+    backendAzureRmStorageAccountName: 'gozhin01'
+    backendAzureRmContainerName: 'terraform'
+    backendAzureRmKey: 'terraform.tfstate' 
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: validate
+    workingDirectory: '$(build.artifactstagingdirectory)/Terraform'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    commandOptions: '- auto-approve'
+    environmentServiceNameAzureRM: 'EPM-RDSP'
