@@ -18,7 +18,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_kubernetes_cluster" "gozhin-k8s-01" {
+resource "azurerm_kubernetes_cluster" "gozhin" {
   name                = "gozhin-k8s-01"
   kubernetes_version  = "1.20.7"
   location            = "__azureLocation__"
@@ -44,5 +44,19 @@ resource "azurerm_kubernetes_cluster" "gozhin-k8s-01" {
   network_profile {
     load_balancer_sku = "Standard"
     network_plugin    = "kubenet"
+  }
+}
+
+resource "azurerm_postgresql_flexible_server" "gozhin" {
+  name                   = "gozhin-psqlflexibleserver-01"
+  resource_group_name    = "__azureRG__"
+  location               = "__azureLocation__"
+  version                = "12"
+  administrator_login    = "psqladminun"
+  administrator_password = "H@Sh1CoR3!"
+  storage_mb = 32768
+  sku_name   = "B_Standard_B1ms"
+  tags = {
+    owner = "ilia_gozhin@epam.com"
   }
 }
