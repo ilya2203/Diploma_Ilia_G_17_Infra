@@ -41,9 +41,9 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(build.artifactstagingdirectory)/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_terraform_ci/tf/Terraform'
     backendServiceArm: 'EPM-RDSP'
-    backendAzureRmResourceGroupName: 'epm-rdsp'
+    backendAzureRmResourceGroupName: $(azureRG)
     backendAzureRmStorageAccountName: 'gozhin01'
     backendAzureRmContainerName: 'terraform'
     backendAzureRmKey: 'terraform.tfstate'
@@ -53,7 +53,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: validate
-    workingDirectory: '$(build.artifactstagingdirectory)/Terraform'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_terraform_ci/tf/Terraform'
 
 - task: TerraformTaskV2@2
   displayName: 'Plan'
