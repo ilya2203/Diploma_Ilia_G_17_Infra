@@ -7,14 +7,6 @@ pool:
   vmImage: vs2017-win2016
 
 steps:
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform'
-  inputs:
-    SourceFolder: 'Terraform'
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
-    CleanTargetFolder: true
-  timeoutInMinutes: 2
 
 - task: replacetokens@4
   displayName: 'Replace token'
