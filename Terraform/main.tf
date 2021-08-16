@@ -21,8 +21,8 @@ provider "azurerm" {
 resource "azurerm_kubernetes_cluster" "gozhin-k8s-01" {
   name                = "gozhin-k8s-01"
   kubernetes_version  = "1.20.7"
-  location            = "West Europe"
-  resource_group_name = "epm-rdsp"
+  location            = "__azureLocation__"
+  resource_group_name = "__azureRG__"
   dns_prefix          = "gozhin-k8s-01-dns"
     tags = {
     owner = "ilia_gozhin@epam.com"
