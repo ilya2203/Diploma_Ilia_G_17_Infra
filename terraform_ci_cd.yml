@@ -21,8 +21,11 @@ steps:
   inputs:
     targetFiles: '**/*.tf'
     encoding: 'auto'
-    tokenPattern: 'rm'
+    tokenPattern: 'custom'
+    tokenPrefix: '__'
+    tokenSuffix: '__'
     writeBOM: true
+    verbosity: 'detailed'
     actionOnMissing: 'warn'
     keepToken: false
     useLegacyPattern: false
