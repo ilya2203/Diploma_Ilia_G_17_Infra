@@ -16,11 +16,26 @@ steps:
     CleanTargetFolder: true
   timeoutInMinutes: 2
 
+- task: replacetokens@4
+  displayName: 'Replace token'
+  inputs:
+    targetFiles: '**/*.tf'
+    encoding: 'auto'
+    tokenPattern: 'rm'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    useLegacyPattern: false
+    enableTransforms: false
+    enableTelemetry: true
+
 - task: TerraformInstaller@0
+  displayName: 'Install Terraform'
   inputs:
     terraformVersion: '1.0.4'
 
 - task: TerraformTaskV2@2
+  displayName: 'Init'
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -32,12 +47,14 @@ steps:
     backendAzureRmKey: 'terraform.tfstate' 
 
 - task: TerraformTaskV2@2
+  displayName: 'Validate'
   inputs:
     provider: 'azurerm'
     command: validate
     workingDirectory: '$(build.artifactstagingdirectory)/Terraform'
 
 - task: TerraformTaskV2@2
+  displayName: 'Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
