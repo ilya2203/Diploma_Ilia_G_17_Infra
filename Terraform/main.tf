@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster" "gozhin" {
   }
 
   default_node_pool {
-    name                = "DSS17"
+    name                = "dss17"
     node_count          = 1
     vm_size             = "standard_b2s"
     type                = "VirtualMachineScaleSets"
