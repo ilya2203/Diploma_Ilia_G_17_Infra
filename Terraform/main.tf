@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster" "gozhin" {
   }
 
   default_node_pool {
-    name                = "system"
+    name                = "DSS17"
     node_count          = 1
     vm_size             = "standard_b2s"
     type                = "VirtualMachineScaleSets"
@@ -52,13 +52,20 @@ resource "azurerm_postgresql_flexible_server" "gozhin" {
   resource_group_name    = "__azureRG__"
   location               = "__azureLocation__"
   version                = "12"
-  administrator_login    = "psqladminun"
-  administrator_password = "H@Sh1CoR3!"
+  administrator_login    = "__login__"
+  administrator_password = "__password__"
   storage_mb             = 32768
   sku_name               = "B_Standard_B1ms"
   tags                   = {
     owner                = "ilia_gozhin@epam.com"
   }
+}
+
+resource "azurerm_postgresql_flexible_server_database" "gozhin" {
+  name      = "gozhin-db-01"
+  server_id = azurerm_postgresql_flexible_server.gozhin.id
+  collation = "en_US.utf8"
+  charset   = "utf8"
 }
 
 resource "azurerm_container_registry" "gozhin" {
