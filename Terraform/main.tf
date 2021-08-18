@@ -47,6 +47,34 @@ resource "azurerm_kubernetes_cluster" "gozhin" {
   }
 }
 
+resource "kubernetes_namespace" "dev" {
+  metadata {
+    annotations = {
+      name = "dev"
+    }
+
+    labels = {
+      mylabel = "dev"
+    }
+
+    name = "dev"
+  }
+}
+
+resource "kubernetes_namespace" "staging" {
+  metadata {
+    annotations = {
+      name = "staging"
+    }
+
+    labels = {
+      mylabel = "staging"
+    }
+
+    name = "staging"
+  }
+}
+
 resource "azurerm_postgresql_flexible_server" "gozhin" {
   name                   = "gozhin-psqlflexibleserver-01"
   resource_group_name    = "__azureRG__"
