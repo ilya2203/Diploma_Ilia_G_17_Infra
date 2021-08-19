@@ -51,6 +51,7 @@ resource "azurerm_postgresql_flexible_server" "gozhin" {
   name                   = "gozhin-psqlflexibleserver-01"
   resource_group_name    = "__azureRG__"
   location               = "__azureLocation__"
+  version                = "13"
   administrator_login    = "__login__"
   administrator_password = "__password__"
   storage_mb             = 32768
